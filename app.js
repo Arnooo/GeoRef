@@ -1,6 +1,7 @@
 // Usage example with ExpressJS
 var fs = require('fs'),
     xplorer = require('./xplorer'),
+    viewer = require('./viewer'),
     express = require('express'),
     util = require('util'),
     port = 3000;
@@ -22,6 +23,7 @@ app.set('views', __dirname + '/views');
 app.configure(function(){
     app.use(express.static(getUserHome()));
     app.use(xplorer.middleware({rootURL:getUserHome()}));
+    app.use(viewer.middleware(gData.xplorer));
 });
 
 app.get('/', function(req, res){
@@ -31,12 +33,13 @@ app.get('/', function(req, res){
 app.get('/xplore*', function(req, res){
   gData.xplorer = req.xplorer;
   res.render('xplorer.ejs', gData);
+  console.log("HRE");
 });
 
 app.get('/viewer*', function(req, res){
     gData.viewer = req.viewer;
+    gData.xplorer.currentImage = gData.viewer.currentImage;
     res.render('viewer.ejs', gData);
-
 });
 
 

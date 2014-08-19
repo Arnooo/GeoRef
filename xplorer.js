@@ -103,7 +103,7 @@ var xplorer = {
           query = req.query;
           
       if(query.gps && query.image){
-        console.log(query);
+        //console.log(query);
         var str =decodeURIComponent(query.gps);
         str = str.replace("LatLng\(","");
         str = str.replace("\)","");

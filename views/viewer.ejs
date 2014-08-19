@@ -14,7 +14,8 @@
     <%}%>
     </ul>
 </div>
-
+<%= xplorer.currentImage%>
+<%= viewer.currentImage%>
 <% if (xplorer.imagetree && xplorer.imagetree[xplorer.currentImage]){ %>
 <div style="display:inline-block;width=40%;">
     <a href="/viewer/img=<%= xplorer.currentImage-1%>">
