@@ -1,0 +1,35 @@
+<script>
+var selectFolder = function (){
+    window.location.href= "/viewer";
+};
+
+var getCurrentFolder = function (path){
+    console.log(path);
+//     var test = path.substr(path.lastIndexOf('/'));
+    console.log(test);
+    return path;
+};
+</script>
+<div class="menu" style="display:inline;">
+<span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span>
+    <button onclick="selectFolder()">Select</button>
+</div>
+<div style="vertical-align:top;">
+    <ul>
+    <a href=<%= xplorer.dir_path.substr(0, xplorer.dir_path.lastIndexOf('/'))%>>
+        <li class="folder">..</li>
+    </a>
+    <% if (xplorer.foldertree && xplorer.foldertree.length > 0){ %>
+            <% xplorer.foldertree.forEach(function(directory){ %>
+        <a href=<%= directory.url%>>
+            <li class="folder"><%= directory.name%></li>
+        </a>
+    <% }) %>
+    <%}else{%>
+    
+    </ul>
+    <span>No images in this folder!</span>
+    <%}%>
+</div>
+
+

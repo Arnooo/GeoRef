@@ -1,0 +1,121 @@
+
+<link rel="stylesheet" href="http://leafletjs.com/dist/leaflet.css" />
+<script src="http://leafletjs.com/dist/leaflet.js"></script>
+
+<div style="vertical-align:top;">
+
+<div style="display:inline-block;width:15%;vertical-align:top;">
+    <ul>
+    <% for(var i=0; i<xplorer.imagetree.length && i < 20; i++){ %>
+    <li class="image-list"><%= xplorer.imagetree[i].name%></li>
+    <% } %>
+    <% if(xplorer.imagetree.length > 20){%>
+    <li class="image-list">...</li>
+    <%}%>
+    </ul>
+</div>
+
+<% if (xplorer.imagetree && xplorer.imagetree[xplorer.currentImage]){ %>
+<div style="display:inline-block;width=40%;">
+    <a href="/viewer/img=<%= xplorer.currentImage-1%>">
+        <span><-- Previous</span>
+    </a>
+    <div style="display:inline-block;height=350px;">
+    <img  height="350px" src="<%= xplorer.imagetree[xplorer.currentImage].url%>" alt="<%= xplorer.imagetree[xplorer.currentImage].name%>">
+    </div>
+    <a href="/viewer/img=<%= xplorer.currentImage+1%>"> 
+        <span>Next --></span>
+     </a> 
+</div>
+<div id="map" style="display:inline-block;width: 400px; height: 400px"></div>
+    <div>
+    <table>
+    <% for (var key in xplorer.imagetree[xplorer.currentImage].info){ %>
+    <tr>
+    <td>
+    <%= key %>
+    </td>
+    <td>
+    <%= xplorer.imagetree[xplorer.currentImage].info[key] %>
+    </td>
+    </tr>
+    <% } %>
+    </table>
+    </div>
+<%}%>
+</div>
+
+<script>
+var baseurl = this.baseurl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+var attribution = '';//Esri, DigitalGlobe, HERE, DeLorme, GeoEye, i-cubed, Earthstar Geographics, CNES/Airbus DS, TomTom, Intermap, increment P Corp., GEBCO, USDA, USGS, FAO, NPS, NRCAN, AEX, GeoBase, Getmapping, Aerogrid, IGN, IGP, Kadaster NL, Ordnance Survey, METI, swisstopo, MapmyIndia, © OpenStreetMap contributors, and the GIS User Community';
+var basemap = L.tileLayer(baseurl, {
+    attribution:'',
+    //attribution: 'Esri, DigitalGlobe, GeoEye, i-cubed, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community '
+});
+this.basemap = basemap;
+
+var streets = L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+    attribution:'',
+    //attribution: 'Esri, HERE, DeLorme, USGS, Intermap, increment P Corp., NRCAN, METI, TomTom, MapmyIndia, © OpenStreetMap contributors, and the GIS User Community',
+    opacity:1.0
+});
+
+var topo = L.tileLayer(
+    //"http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"
+    "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+    , {
+        attribution: attribution,
+        opacity:0.6
+    });
+
+var center = new L.LatLng(56.9450, -4.1089);
+var urlArray = window.location.href.split("?gps=");
+if(urlArray.length > 1){
+    urlArray = urlArray[1].split("&");
+    if(urlArray.length > 1){
+        
+        var url =decodeURIComponent(urlArray[0]);
+        url = url.replace("LatLng\(","");
+        url = url.replace("\)","");
+        var argsList = url.split(", ");
+        center = new L.LatLng(parseFloat(argsList[0]), parseFloat(argsList[1]));
+    }
+}
+
+var map =  L.map('map',{
+    center: center,
+    zoom: 8,
+    layers: [basemap, topo]
+});
+
+L.marker(center).addTo(map);
+
+var popup = L.popup();
+
+function onMapClick(e) {
+    //     popup
+    //     .setLatLng(e.latlng)
+    //     .setContent("You clicked the map at " + e.latlng.toString())
+    //     .openOn(map);
+    
+    var urlArray = window.location.href.split("?");
+    var image = undefined;
+    <%if(xplorer.imagetree && xplorer.imagetree[xplorer.currentImage]){%>
+    image = "<%=xplorer.imagetree[xplorer.currentImage].full_path%>";
+    <%}%>
+    if(image !== undefined){
+        window.location.href=urlArray[0]+"?gps="+e.latlng.toString()+"&image='"+image+"'";
+    }
+    else{
+        window.location.href=urlArray[0];
+    }
+    
+    
+}
+
+map.on('click', onMapClick);
+
+// map.on('click', function(e) {
+    //     console.log(e);
+// });
+</script>
