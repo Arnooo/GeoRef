@@ -10,7 +10,7 @@ var selectFolder = function (){
 <div class="button"><span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span></div>
 <div class="button" onclick="selectFolder()"><span>Select this folder</span></div>
 </div>
-<div>
+<div class="content">
     <ul>
     <a href="?folder=<%= xplorer.dir_path.substr(0, xplorer.dir_path.lastIndexOf('/'))%>">
         <li class="folder">..</li>
@@ -24,7 +24,7 @@ var selectFolder = function (){
     <%}else{%>
     
     </ul>
-    <span>No images in this folder!</span>
+    <span>No more folder here!</span>
     <%}%>
 </div>
 <div class="footer">

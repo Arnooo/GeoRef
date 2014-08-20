@@ -75,53 +75,6 @@ a:hover{
     cursor:pointer;
 }
 
-.image-list{
-    display:inline-block;
-    margin:0px;
-    width:30%;
-    vertical-align:top;
-}
-
-.previous{
-}
-
-.next{
-}
-
-.view{
-    display:inline-block;
-    margin:0px;
-    width:39%;
-    vertical-align:top;
-/*     height:400px; */
-}
-
-.view-link{
-    display:inline-block;
-    margin:0px;
-    width:19%;
-    background-color:#ECECEC;
-    height:400px;
-    vertical-align:top;
-}
-
-.view-link:hover{
-    background-color:#000;
-}
-
-.view-img{
-    display:inline-block;
-    margin:0px;
-    width:60%;
-}
-
-.map{
-    display:inline-block;
-    margin:0px;
-    width: 30%; 
-    height: 400px;
-}
-
 .menu{
     display:inline-block;
     width:100%;
@@ -131,5 +84,78 @@ a:hover{
     
     color:#fff;
     background-color:#000;
+    position: fixed;
+    top:0px;
+    left:0px;
+    z-index:10000;
 }
+
+.content{
+    display: inline-block;
+    width: 100%;
+    overflow:scroll;
+    position: relative;
+    top:64px;
+}
+
+.table{
+    display: table;
+    background-color:#ECECEC;
+    width: 100%;
+}
+
+.image-list{
+    display:table-cell;
+    margin:0px;
+    width:12%;
+    vertical-align:top;
+}
+
+.view{
+    display:table-cell;
+    margin:0px;
+    width:50%;
+    vertical-align:top;
+/*     height:400px; */
+}
+
+.map{
+    display: table-cell;
+    margin: 0px;
+    width: 35%; 
+    height: 400px;
+}
+
+.info{
+    display: inline-block;
+    width: 100%;
+}
+
+.view-link{
+    display:table-cell;
+    border: 1px;
+    border-style: solid;
+    border-color:#000;
+    margin:0px;
+    width:3%;
+    height:400px;
+    vertical-align:middle;
+}
+
+.view-link:hover{
+    background-color:#000;
+}
+
+.view-img{
+    display:table-cell;
+    margin:0px;
+    width:45%;
+    vertical-align: middle;
+}
+
+
+.map:hover{
+    cursor: crosshair;
+}
+
 

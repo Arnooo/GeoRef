@@ -39,6 +39,17 @@ li:hover{
     
     color:#fff;
     background-color:#000;
+    position: fixed;
+    top:0px;
+    left:0px;
+    z-index:1000;
+}
+
+.content{
+    overflow:scroll;
+    position: relative;
+    top:64px;
+    margin-bottom:52px;
 }
 
 .footer{
@@ -49,11 +60,15 @@ li:hover{
     
     color:#fff;
     background-color:#000;
+
+    position: fixed;
+    bottom:0px;
+    z-index:10000;
 }
 
 .button{
     display:inline-block;
-    width:49%;
+    width:48%;
     margin-top:10px;
     margin-bottom:10px;
     border:1px;

@@ -10,18 +10,18 @@ var selectFolder = function (){
 <div class="menu">
 <div class="button" onclick="selectFolder()"><span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span></div>
 </div>
+<div class="content">
+<div class="table">
 <div class="image-list">
     <ul>
-    <% for(var i=0; i<xplorer.imagetree.length && i < 20; i++){ %>
+    <% for(var i=0; i<xplorer.imagetree.length && i < 8; i++){ %>
     <li ><%= xplorer.imagetree[i].name%></li>
     <% } %>
-    <% if(xplorer.imagetree.length > 20){%>
+    <% if(xplorer.imagetree.length > 8){%>
     <li >...</li>
     <%}%>
     </ul>
 </div>
-<% if (xplorer.imagetree && xplorer.imagetree[xplorer.currentImage]){ %>
-<div class="view">
     <a href="/viewer?img=<%= xplorer.currentImage-1%>&folder=<%= xplorer.dir_path%>">
         <div class="previous view-link"><span><==</span></div>
     </a>
@@ -31,8 +31,8 @@ var selectFolder = function (){
     <a href="/viewer?img=<%= xplorer.currentImage+1%>&folder=<%= xplorer.dir_path%>"> 
         <div class="next view-link"><span>==></span></div>
      </a> 
-</div>
 <div id="map" class="map"></div>
+</div>
 <div class="info">
     <table>
     <% for (var key in xplorer.imagetree[xplorer.currentImage].info){ %>
@@ -47,7 +47,7 @@ var selectFolder = function (){
     <% } %>
     </table>
 </div>
-<%}%>
+</div>
 
 <script>
 var baseurl = this.baseurl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -79,22 +79,10 @@ var center = new L.LatLng(56.9450, -4.1089);
 )
 {%>
     var gpsLat = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLatitude%>;
-    var gpsLon = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLongitude%>;
-    center = new L.LatLng(gpsLat, gpsLon);
+    var gpsLng = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLongitude%>;
+    console.log("GPS="+gpsLat + " "+ gpsLng);
+    center = new L.LatLng(gpsLat, gpsLng);
 <%}%>
-
-var urlArray = window.location.href.split("?gps=");
-if(urlArray.length > 1){
-    urlArray = urlArray[1].split("&");
-    if(urlArray.length > 1){
-        
-        var url =decodeURIComponent(urlArray[0]);
-        url = url.replace("LatLng\(","");
-        url = url.replace("\)","");
-        var argsList = url.split(", ");
-        center = new L.LatLng(parseFloat(argsList[0]), parseFloat(argsList[1]));
-    }
-}
 
 var map =  L.map('map',{
     center: center,
@@ -118,7 +106,7 @@ function onMapClick(e) {
     image = "<%=xplorer.imagetree[xplorer.currentImage].full_path%>";
     <%}%>
     if(image !== undefined){
-        window.location.href=urlArray[0]+"?gps="+e.latlng.toString()+"&image='"+image+"'";
+        window.location.href=urlArray[0]+"?gpsLat="+e.latlng.lat+"&gpsLng="+e.latlng.lng+"&image='"+image+"'";
     }
     else{
         window.location.href=urlArray[0];

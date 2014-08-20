@@ -9,6 +9,7 @@ var xplorer = {
   current_image:0,
   setGPSCoordinate:function(gpsCoordinate, imageURL, callback){
       var self = this;
+      console.log("exiftool -exif:gpslatitude="+gpsCoordinate[0]+" -exif:gpslongitude="+gpsCoordinate[1]+" '"+ imageURL+"'");
       exec("exiftool -exif:gpslatitude="+gpsCoordinate[0]+" -exif:gpslongitude="+gpsCoordinate[1]+" '"+ imageURL+"'",  
         function (error, stdout, stderr) {
             console.log(stdout);
@@ -101,16 +102,10 @@ var xplorer = {
         var url = decodeURIComponent(req.path),
             query = req.query;
             
-        if(query.gps && query.image){
-            var str =decodeURIComponent(query.gps);
-            str = str.replace("LatLng\(","");
-            str = str.replace("\)","");
-            var argsList = str.split(", ");
-            console.log(argsList[0]+ " "+argsList[1]);
-            if(argsList.length > 1)
-            {
-                self.setGPSCoordinate(argsList, query.image);    
-            }
+        if(query.gpsLat &&
+           query.gpsLng &&
+           query.image){
+            self.setGPSCoordinate([query.gpsLat, query.gpsLng], query.image); 
         }
         
         if(query.img){
