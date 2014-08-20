@@ -40,7 +40,7 @@ var xplorer = {
     fs.readdir(dir_path, function (err, files) { // '/' denotes the root folder
       if (err) throw err;
       var data = {
-        dir_path:"/xplore"+dir_path,
+        dir_path:dir_path,
         foldertree:[],
         imagetree:[],
         currentImage:imgID
@@ -55,7 +55,7 @@ var xplorer = {
           var file = {
             name: files[i],
             full_path: encodeURIComponent(full_path),
-            url: encodeURIComponent("xplore"+full_path),
+            url: encodeURIComponent(full_path),
             info:"empty"
           };
 
@@ -99,46 +99,36 @@ var xplorer = {
         self.rootURL = opt.rootURL;
     }
     return function(req, res, next){
-      var url = decodeURIComponent(req.path),
-          query = req.query;
-          
-      if(query.gps && query.image){
-        //console.log(query);
-        var str =decodeURIComponent(query.gps);
-        str = str.replace("LatLng\(","");
-        str = str.replace("\)","");
-        var argsList = str.split(", ");
-        console.log(argsList[0]+ " "+argsList[1]);
-        if(argsList.length > 1)
-        {
-            self.setGPSCoordinate(argsList, query.image);    
-        }
-      }
-          
-      var regex = /xplore/;
-      if(regex.test(url)){
-        url = url.replace("/xplore", "");
-  /*      if (url.charAt(0)==="/"){
-          url = url.substring(1, url.length);
-        }*/
-        if(url !== ""){
+        
+        console.log("xplorer");
+        var url = decodeURIComponent(req.path),
+            query = req.query;
             
-            urlArray = url.split("/img=");
-            self.current_path = urlArray[0];
-            if(urlArray.length > 1)
+        if(query.gps && query.image){
+            //console.log(query);
+            var str =decodeURIComponent(query.gps);
+            str = str.replace("LatLng\(","");
+            str = str.replace("\)","");
+            var argsList = str.split(", ");
+            console.log(argsList[0]+ " "+argsList[1]);
+            if(argsList.length > 1)
             {
-                self.current_image = parseInt(urlArray[1]);
+                self.setGPSCoordinate(argsList, query.image);    
             }
         }
+        
+        if(query.img){
+            self.current_image = parseInt(query.img);
+        }
+            
+        if(query.folder){
+            self.current_path = query.folder;
+        }
+        
         self.read(self.current_path, self.current_image, function(err, data){
-          req.xplorer = data;
-          return next(err);
+            req.xplorer = data;
+            return next(err);
         });
-      }
-      else{
-        //this request is not our business
-        return next();
-      }
 
     };
   }

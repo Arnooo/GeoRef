@@ -14,17 +14,15 @@
     <%}%>
     </ul>
 </div>
-<%= xplorer.currentImage%>
-<%= viewer.currentImage%>
 <% if (xplorer.imagetree && xplorer.imagetree[xplorer.currentImage]){ %>
 <div style="display:inline-block;width=40%;">
-    <a href="/viewer/img=<%= xplorer.currentImage-1%>">
+    <a href="/viewer?img=<%= xplorer.currentImage-1%>&folder=<%= xplorer.dir_path%>">
         <span><-- Previous</span>
     </a>
     <div style="display:inline-block;height=350px;">
     <img  height="350px" src="<%= xplorer.imagetree[xplorer.currentImage].url%>" alt="<%= xplorer.imagetree[xplorer.currentImage].name%>">
     </div>
-    <a href="/viewer/img=<%= xplorer.currentImage+1%>"> 
+    <a href="/viewer?img=<%= xplorer.currentImage+1%>&folder=<%= xplorer.dir_path%>"> 
         <span>Next --></span>
      </a> 
 </div>

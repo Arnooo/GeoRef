@@ -1,22 +1,22 @@
 
 var viewer = {
-    xplorerData:0,
-    middleware: function(xplorerData){
+    data:0,
+    middleware: function(inData){
         var self = this;
         return function(req, res, next){
+            
+            console.log("viewer");
             var url = decodeURIComponent(req.path);
-            var regex = /viewer/;
+            var query = req.query;
+            
+            console.log(inData);
             req.viewer = {currentImage:0};
-            if(xplorerData){
-                self.xplorerData = xplorerData;
+            if(inData){
+                self.data = inData;
             }
 
-            if(regex.test(url)){
-                urlArray = url.split("/img=");
-                if(urlArray.length > 1)
-                {
-                    req.viewer.currentImage = parseInt(urlArray[1]);
-                }
+            if(query.img){
+                req.viewer.currentImage = parseInt(query.img);
                 next();
             }
             else{

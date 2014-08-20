@@ -7,9 +7,9 @@ var fs = require('fs'),
     port = 3000;
     
 var gData = {
-//     layout:false,
     xplorer:0,
-    viewer:0
+    viewer:0,
+    rootURL:getUserHome()
 };
 
 function getUserHome() {
@@ -22,26 +22,24 @@ app.set('views', __dirname + '/views');
 
 app.configure(function(){
     app.use(express.static(getUserHome()));
-    app.use(xplorer.middleware({rootURL:getUserHome()}));
-    app.use(viewer.middleware(gData.xplorer));
+    app.use(xplorer.middleware(gData));
+//     app.use(viewer.middleware(gData));
 });
 
 app.get('/', function(req, res){
-  res.redirect('/xplore');
+    res.redirect('/xplore');
 });
 
 app.get('/xplore*', function(req, res){
-  gData.xplorer = req.xplorer;
-  res.render('xplorer.ejs', gData);
-  console.log("HRE");
+    gData.xplorer = req.xplorer;
+    res.render('xplorer.ejs', gData);
 });
 
 app.get('/viewer*', function(req, res){
-    gData.viewer = req.viewer;
-    gData.xplorer.currentImage = gData.viewer.currentImage;
+    gData.xplorer = req.xplorer;
+//     gData.xplorer.currentImage = gData.viewer.currentImage;
     res.render('viewer.ejs', gData);
 });
-
 
 app.listen(port);
 console.log('georef listening on localhost:' + port);
