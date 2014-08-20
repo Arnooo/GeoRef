@@ -36,7 +36,6 @@ var xplorer = {
   },
   read: function(dir_path, imgID, callback){
     var self = this;
-//     console.log(dir_path);
     fs.readdir(dir_path, function (err, files) { // '/' denotes the root folder
       if (err) throw err;
       var data = {
@@ -99,13 +98,10 @@ var xplorer = {
         self.rootURL = opt.rootURL;
     }
     return function(req, res, next){
-        
-        console.log("xplorer");
         var url = decodeURIComponent(req.path),
             query = req.query;
             
         if(query.gps && query.image){
-            //console.log(query);
             var str =decodeURIComponent(query.gps);
             str = str.replace("LatLng\(","");
             str = str.replace("\)","");

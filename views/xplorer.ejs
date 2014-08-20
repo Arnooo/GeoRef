@@ -7,9 +7,8 @@ var selectFolder = function (){
 };
 </script>
 <div class="menu">
-<span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span>
-<span>[<%= xplorer.imagetree.length%> Images]</span>
-    <button onclick="selectFolder()">Select</button>
+<div class="button"><span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span></div>
+<div class="button" onclick="selectFolder()"><span>Select this folder</span></div>
 </div>
 <div>
     <ul>
@@ -27,6 +26,9 @@ var selectFolder = function (){
     </ul>
     <span>No images in this folder!</span>
     <%}%>
+</div>
+<div class="footer">
+    <span>[<%= xplorer.imagetree.length%> Images]</span>
 </div>
 
 

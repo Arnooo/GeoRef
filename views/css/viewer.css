@@ -1,7 +1,13 @@
 body{
+    display:inline-block;
+    width:100%;
     text-align:center;
     margin:0px;
     font-size:20px;
+}
+
+img{
+    width:100%;
 }
 
 ul{
@@ -26,15 +32,12 @@ a:hover{
     color:#fff;
 }
 
-li:hover{
-    background-color:#000;
-}
 
 .menu{
     display:inline-block;
     width:100%;
     text-align:center;
-/*     padding:10px; */
+    /*     padding:10px; */
     font-size:28px;
     
     color:#fff;
@@ -71,3 +74,62 @@ li:hover{
     background-color:#fff;
     cursor:pointer;
 }
+
+.image-list{
+    display:inline-block;
+    margin:0px;
+    width:30%;
+    vertical-align:top;
+}
+
+.previous{
+}
+
+.next{
+}
+
+.view{
+    display:inline-block;
+    margin:0px;
+    width:39%;
+    vertical-align:top;
+/*     height:400px; */
+}
+
+.view-link{
+    display:inline-block;
+    margin:0px;
+    width:19%;
+    background-color:#ECECEC;
+    height:400px;
+    vertical-align:top;
+}
+
+.view-link:hover{
+    background-color:#000;
+}
+
+.view-img{
+    display:inline-block;
+    margin:0px;
+    width:60%;
+}
+
+.map{
+    display:inline-block;
+    margin:0px;
+    width: 30%; 
+    height: 400px;
+}
+
+.menu{
+    display:inline-block;
+    width:100%;
+    text-align:center;
+    /*     padding:10px; */
+    font-size:28px;
+    
+    color:#fff;
+    background-color:#000;
+}
+

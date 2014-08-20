@@ -1,33 +1,39 @@
 
+<link rel="stylesheet" type="text/css" href="<%= dirName%>/views/css/viewer.css" media="screen" />
 <link rel="stylesheet" href="http://leafletjs.com/dist/leaflet.css" />
 <script src="http://leafletjs.com/dist/leaflet.js"></script>
-
-<div style="vertical-align:top;">
-
-<div style="display:inline-block;width:15%;vertical-align:top;">
+<script>
+var selectFolder = function (){
+    window.location.href= "/xplorer";
+};
+</script>
+<div class="menu">
+<div class="button" onclick="selectFolder()"><span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span></div>
+</div>
+<div class="image-list">
     <ul>
     <% for(var i=0; i<xplorer.imagetree.length && i < 20; i++){ %>
-    <li class="image-list"><%= xplorer.imagetree[i].name%></li>
+    <li ><%= xplorer.imagetree[i].name%></li>
     <% } %>
     <% if(xplorer.imagetree.length > 20){%>
-    <li class="image-list">...</li>
+    <li >...</li>
     <%}%>
     </ul>
 </div>
 <% if (xplorer.imagetree && xplorer.imagetree[xplorer.currentImage]){ %>
-<div style="display:inline-block;width=40%;">
+<div class="view">
     <a href="/viewer?img=<%= xplorer.currentImage-1%>&folder=<%= xplorer.dir_path%>">
-        <span><-- Previous</span>
+        <div class="previous view-link"><span><==</span></div>
     </a>
-    <div style="display:inline-block;height=350px;">
-    <img  height="350px" src="<%= xplorer.imagetree[xplorer.currentImage].url%>" alt="<%= xplorer.imagetree[xplorer.currentImage].name%>">
+    <div class="view-img">
+        <img  src="<%= xplorer.imagetree[xplorer.currentImage].url%>" alt="<%= xplorer.imagetree[xplorer.currentImage].name%>">
     </div>
     <a href="/viewer?img=<%= xplorer.currentImage+1%>&folder=<%= xplorer.dir_path%>"> 
-        <span>Next --></span>
+        <div class="next view-link"><span>==></span></div>
      </a> 
 </div>
-<div id="map" style="display:inline-block;width: 400px; height: 400px"></div>
-    <div>
+<div id="map" class="map"></div>
+<div class="info">
     <table>
     <% for (var key in xplorer.imagetree[xplorer.currentImage].info){ %>
     <tr>
@@ -40,9 +46,8 @@
     </tr>
     <% } %>
     </table>
-    </div>
-<%}%>
 </div>
+<%}%>
 
 <script>
 var baseurl = this.baseurl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
