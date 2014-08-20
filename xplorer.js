@@ -22,7 +22,7 @@ var xplorer = {
   },
   readInfo:function(imageURL, callback){
       var self = this;
-      exec("exiftool -j '"+imageURL+"'",  
+      exec("exiftool -n -j '"+imageURL+"'",  
         function (error, stdout, stderr) {
             if (error !== null) {
                 callback(new Error("Error executing exiftool on "+imageURL), null);

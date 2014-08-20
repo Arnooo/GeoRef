@@ -68,6 +68,16 @@ var topo = L.tileLayer(
     });
 
 var center = new L.LatLng(56.9450, -4.1089);
+<%if(xplorer.imagetree && 
+    xplorer.imagetree[xplorer.currentImage] &&
+    xplorer.imagetree[xplorer.currentImage].info.GPSPosition
+)
+{%>
+    var gpsLat = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLatitude%>;
+    var gpsLon = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLongitude%>;
+    center = new L.LatLng(gpsLat, gpsLon);
+<%}%>
+
 var urlArray = window.location.href.split("?gps=");
 if(urlArray.length > 1){
     urlArray = urlArray[1].split("&");
