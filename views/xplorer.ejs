@@ -1,14 +1,17 @@
+
+<link rel="stylesheet" type="text/css" href="<%= dirName%>/views/css/xplorer.css" media="screen" />
+
 <script>
 var selectFolder = function (){
     window.location.href= "/viewer";
 };
 </script>
-<div class="menu" style="display:inline;">
+<div class="menu">
 <span><%= xplorer.dir_path.substr(xplorer.dir_path.lastIndexOf('/')+1)%></span>
 <span>[<%= xplorer.imagetree.length%> Images]</span>
     <button onclick="selectFolder()">Select</button>
 </div>
-<div style="vertical-align:top;">
+<div>
     <ul>
     <a href="?folder=<%= xplorer.dir_path.substr(0, xplorer.dir_path.lastIndexOf('/'))%>">
         <li class="folder">..</li>

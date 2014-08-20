@@ -1,0 +1,36 @@
+body{
+    text-align:center;
+    margin:0px;
+}
+
+ul{
+    margin:0px;
+    padding:0px;
+}
+
+li{
+    list-style-type:none;
+    padding:10px;
+    text-align:left;
+    vertical-align:middle;
+    background-color:#ECECEC;
+}
+
+a{
+    text-decoration:none;
+    color:#000;
+}
+
+a:hover{
+    color:#fff;
+}
+
+li:hover{
+    background-color:#000;
+}
+
+.menu{
+    width:100%;
+    text-align:center;
+    padding:10px;
+}

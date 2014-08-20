@@ -13,9 +13,15 @@
     },
     "dependencies": {
         "express": "3.0",
-        "ejs": "*"
+        "ejs": "*",
+        "path": "*"
     },
     "scripts": {
         "start": "node app.js"
+    },
+    "window": {
+        "toolbar": false,
+        "width": 800,
+        "height": 600
     }
 }

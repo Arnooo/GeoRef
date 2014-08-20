@@ -4,12 +4,14 @@ var fs = require('fs'),
     viewer = require('./viewer'),
     express = require('express'),
     util = require('util'),
+    path = require('path'),
     port = 3000;
     
 var gData = {
     xplorer:0,
     viewer:0,
-    rootURL:getUserHome()
+    rootURL:getUserHome(),
+    dirName:path.relative(getUserHome(), __dirname)
 };
 
 function getUserHome() {
