@@ -1,0 +1,21 @@
+{
+    "author": "Arnaud JOUBEL <arnaud.joubel@gmail.com>",
+    "name": "GeoRef",
+    "description": "GeoReferencing application to add GPS coordinates to your pictures. Using exiftool to get and set exif informations",
+    "version": "0.0.1",
+    "homepage": "http://www.github.com/arnooo/GeoRef",
+    "repository": {
+        "url": ""
+    },
+    "main": "app.js",
+    "engines": {
+        "node": ">=0.6.2"
+    },
+    "dependencies": {
+        "express": "3.0",
+        "ejs": "*"
+    },
+    "scripts": {
+        "start": "node app.js"
+    }
+}
