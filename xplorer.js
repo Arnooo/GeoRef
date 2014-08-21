@@ -8,7 +8,8 @@ var xplorer = {
   current_path:'/',
   current_image:0,
   map:{
-      zoom:8
+      zoom:8,
+      gps:0
   },
   setGPSCoordinate:function(gps, imageURL, callback){
       console.log("setGPSCoordinate");
@@ -131,6 +132,7 @@ var xplorer = {
                 lng:query.gpsLng,
                 lngRef:query.gpsLngRef
             };
+            self.map.gps = gps;
             self.setGPSCoordinate(gps, query.image, function(){
                 self.read(function(err, data){
                     req.xplorer = data;

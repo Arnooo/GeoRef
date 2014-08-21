@@ -73,6 +73,7 @@ var topo = L.tileLayer(
     });
 
 var center = new L.LatLng(56.9450, -4.1089);
+var showMarker = 0;
 <%if(xplorer.imagetree && 
     xplorer.imagetree[xplorer.currentImage] &&
     xplorer.imagetree[xplorer.currentImage].info.GPSPosition
@@ -80,8 +81,13 @@ var center = new L.LatLng(56.9450, -4.1089);
 {%>
     var gpsLat = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLatitude%>;
     var gpsLng = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLongitude%>;
+    showMarker = 1;
 
 //     console.log("GPS="+gpsLat + " "+ gpsLng);
+    center = new L.LatLng(gpsLat, gpsLng);
+<%}else if(map.gps){%>
+    var gpsLat = <%= map.gps.lat%>;
+    var gpsLng = <%= map.gps.lng%>;
     center = new L.LatLng(gpsLat, gpsLng);
 <%}%>
 
@@ -99,7 +105,9 @@ var map =  L.map('map',{
     layers: [basemap, topo]
 });
 
-L.marker(center).addTo(map);
+if(showMarker){
+    L.marker(center).addTo(map);
+}
 
 var popup = L.popup();
 
