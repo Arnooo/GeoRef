@@ -80,13 +80,22 @@ var center = new L.LatLng(56.9450, -4.1089);
 {%>
     var gpsLat = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLatitude%>;
     var gpsLng = <%= xplorer.imagetree[xplorer.currentImage].info.GPSLongitude%>;
-    console.log("GPS="+gpsLat + " "+ gpsLng);
+
+//     console.log("GPS="+gpsLat + " "+ gpsLng);
     center = new L.LatLng(gpsLat, gpsLng);
+<%}%>
+
+var zoom = 8;
+<%if(map &&
+    map.zoom
+)
+{%>
+    zoom = <%= map.zoom%>;
 <%}%>
 
 var map =  L.map('map',{
     center: center,
-    zoom: 8,
+    zoom: zoom,
     layers: [basemap, topo]
 });
 
@@ -106,7 +115,12 @@ function onMapClick(e) {
     image = "<%=xplorer.imagetree[xplorer.currentImage].full_path%>";
     <%}%>
     if(image !== undefined){
-        window.location.href=urlArray[0]+"?gpsLat="+e.latlng.lat+"&gpsLng="+e.latlng.lng+"&image='"+image+"'";
+        var gpsLatRef = (e.latlng.lat >= 0.0)?"N":"S";
+        var gpsLngRef = (e.latlng.lng >= 0.0)?"E":"W";
+        var mapZoom = map.getZoom();
+        var redirect = urlArray[0]+"?gpsLat="+e.latlng.lat+"&gpsLatRef="+gpsLatRef+"&gpsLng="+e.latlng.lng+"&gpsLngRef="+gpsLngRef+"&image='"+image+"'"+"&zoom="+mapZoom;
+        console.log(redirect);
+        window.location.href=redirect;
     }
     else{
         window.location.href=urlArray[0];

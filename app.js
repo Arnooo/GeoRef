@@ -8,6 +8,7 @@ var fs = require('fs'),
     port = 3000;
     
 var gData = {
+    map:0,
     xplorer:0,
     viewer:0,
     rootURL:getUserHome(),
@@ -34,11 +35,13 @@ app.get('/', function(req, res){
 
 app.get('/xplore*', function(req, res){
     gData.xplorer = req.xplorer;
+    gData.map = req.map;
     res.render('xplorer.ejs', gData);
 });
 
 app.get('/viewer*', function(req, res){
     gData.xplorer = req.xplorer;
+    gData.map = req.map;
 //     gData.xplorer.currentImage = gData.viewer.currentImage;
     res.render('viewer.ejs', gData);
 });
