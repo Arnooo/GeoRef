@@ -14,10 +14,12 @@
     "dependencies": {
         "express": "3.0",
         "ejs": "*",
-        "path": "*"
+        "path": "*",
+        "http-server": "*"
     },
     "scripts": {
-        "start": "node app.js"
+        "test": "node app.js",
+        "start": "http-server -a localhost -p 8000"
     },
     "window": {
         "toolbar": false,

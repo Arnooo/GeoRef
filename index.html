@@ -5,6 +5,25 @@
   <title>GeoRef</title>
 </head>
 <body>
-<input type="file" id="ctrl" webkitdirectory directory multiple/>
+    <input type="file" id="selectFolder" onchange="xplorer.onSelectFolder()" accept="image/*" webkitdirectory directory multiple/>
 </body>
 </html>
+
+<script>
+    var xplorer = {
+        readInfo:function(file){
+
+        },
+        onSelectFolder: function(){
+            var files = document.getElementById('selectFolder').files;
+            var images = [];
+            var isImageRegex = /\b.(JPG|jpg|bmp|jpeg|gif|png|tif)\b$/;
+            for(var i = 0; i < files.length; i++){
+                if(isImageRegex.test(files[i].name)){
+                    images.push(files[i]);
+                }
+            }
+            console.log(images);
+        }
+    };
+</script>
